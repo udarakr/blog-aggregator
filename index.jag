@@ -1,0 +1,27 @@
+<%
+var caramel;
+
+var path = "posts";
+var dir = new File(path);
+var list = dir.listFiles();
+var body = "";
+
+for(var i=0; i < list.length; i++){
+	body += "filename : "+list[i].getName()+"<br/>";
+	body += "<br/>-------------------------------------------START---------------------------------------------<br/>";
+	var blogFile = new File("posts/"+list[i].getName());
+	blogFile.open("r");
+		var post = "";
+		post = blogFile.readAll();
+		//print(post);
+		body +=post;
+	body +="<br/>-------------------------------------------END---------------------------------------------<br/>";
+	blogFile.close();
+}
+
+	caramel = require('caramel').caramel;
+	caramel.render({
+		'title': {text :'Blog Aggregator'},
+		'body': {text:body}
+	});
+%>
